@@ -6,7 +6,45 @@
         xmlns:local="clr-namespace:MemeMaker"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Window.Resources>
+        <local:BorderConverter x:Key="conversor"></local:BorderConverter>
+    </Window.Resources>
+    
+    
+    <StackPanel Margin="5">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Texto Superior: "></TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="SuperiorTextBox"></TextBox>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Texto Inferior: "></TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="InferiorTextBox"></TextBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Alto: "></TextBlock>
+        <Slider Grid.Row="2" Grid.Column="1" Minimum="100" Maximum="1000" x:Name="AnchoSlider" Value="500"></Slider>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Ancho: "></TextBlock>
+            <Slider Grid.Row="3" Grid.Column="1" Minimum="100" Maximum="1000" x:Name="AltoSlider" Value="500"></Slider>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Imagen: "></TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="ImagenTextBox"></TextBox>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Borde: "></TextBlock>
+        <CheckBox Grid.Row="5" Grid.Column="1" x:Name="BorderCheckBox" Tag="5"/>
     </Grid>
+        <Border BorderBrush="Black" BorderThickness="{Binding ElementName=BorderCheckBox, Path=IsChecked, Converter={StaticResource conversor}}"
+                Width="{Binding ElementName=AnchoSlider, Path=Value}"  Height="{Binding ElementName=AltoSlider, Path=Value}">
+        <Grid>
+            <Image Source="{Binding ElementName=ImagenTextBox, Path=Text}" Width="{Binding ElementName=AnchoSlider, Path=Value}" Height="{Binding ElementName=AltoSlider, Path=Value}" Stretch="Fill"></Image>
+            <TextBlock Text="{Binding ElementName=SuperiorTextBox, Path=Text}" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Impact" FontSize="22"></TextBlock>
+            <TextBlock Text="{Binding ElementName=InferiorTextBox, Path=Text}" VerticalAlignment="Bottom"   HorizontalAlignment="Center" FontFamily="Impact" FontSize="22"></TextBlock>
+        </Grid>
+    </Border>
+    </StackPanel>
 </Window>
